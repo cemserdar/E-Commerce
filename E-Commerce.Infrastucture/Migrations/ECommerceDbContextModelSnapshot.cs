@@ -132,6 +132,9 @@ namespace E_Commerce.Infrastucture.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Telefon")
                         .IsRequired()
                         .HasColumnType("text");

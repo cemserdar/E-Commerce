@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace E_Commerce.Infrastucture.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    [Migration("20241226202958_InitialCreate")]
+    [Migration("20241227120157_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -134,6 +134,9 @@ namespace E_Commerce.Infrastucture.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Telefon")
                         .IsRequired()
