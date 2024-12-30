@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace E_Commerce.Infrastucture.Migrations
+namespace E_Commerce.Presentation.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
     partial class ECommerceDbContextModelSnapshot : ModelSnapshot

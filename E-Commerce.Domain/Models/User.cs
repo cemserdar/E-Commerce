@@ -15,5 +15,11 @@ public class User
     public string Telefon { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public ICollection<Basket> Baskets { get; set; } 
+    public ICollection<Basket> Baskets { get; set; }
+
+    public enum UserRole
+    {
+        Admin = 1,
+        StandardUser = 2
+    }
 }

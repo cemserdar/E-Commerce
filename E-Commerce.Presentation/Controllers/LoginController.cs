@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using E_Commerce.Infrastructure.Data;
+using System.Linq;
+using E_Commerce.Domain.Models;
 using E_Commerce.Application.Interfaces;
+using static E_Commerce.Domain.Models.User;
+using E_Commerce.Domain.ViewModel;
 
 namespace E_Commerce.Presentation.Controllers
 {
-    //[ApiController]
-    //[Route("api/[controller]")]
     public class LoginController : Controller
     {
         private readonly ECommerceDbContext _context;
@@ -20,63 +22,91 @@ namespace E_Commerce.Presentation.Controllers
             _userService = userService;
         }
 
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-
         [HttpPost]
-        //[Route("/login")]
-        public  IActionResult Login(string username, string password)
+        public IActionResult Login(string email, string password)
         {
-           var isExist =  _userService.UserCheck(username,password);
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                ModelState.AddModelError("", "Email and password are required.");
+                return View();
+            }
 
-            if (isExist)
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            if (user != null)
             {
                 var claims = new List<Claim>
                 {
-                    //Role 1 Admin
-                    new Claim(ClaimTypes.Name, username),
-                    new Claim("Role", _context.Users.FirstOrDefault().Role.ToString())
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim("Role", user.Role.ToString())
                 };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = true 
+                    IsPersistent = true
                 };
 
-              
-                 HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                                               new ClaimsPrincipal(claimsIdentity),
                                               authProperties);
 
                 return RedirectToAction("Index", "Home");
-                //return View();
             }
 
-            else
-            {
-                return View();
-            }
-           
-            return Ok("Giriş başarılı.");
-            //ViewBag.Error = "Geçersiz kullanıcı adı veya şifre.";
-            //return Ok();
+            ModelState.AddModelError("", "Invalid email or password.");
+            return View();
         }
 
-        //public async Task<IActionResult> Logout()
-        //{
-        //    // Kullanıcı oturumu kapatılıyor
-        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //    return RedirectToAction("Login", "Account");
-        //}
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
-        //public IActionResult AccessDenied()
-        //{
-        //    return Ok("hata");
-        //}
+        [HttpPost]
+        public IActionResult Register(RegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var newUser = new User
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Password = model.Password, 
+                    Address = model.Address,
+                    Telefon = model.Telefon,
+                    Role = (int)UserRole.StandardUser 
+                };
+
+                var isEmailExists = _context.Users.Any(u => u.Email == model.Email);
+                if (isEmailExists)
+                {
+                    ModelState.AddModelError("", "Email is already registered.");
+                    return View(model); 
+                }
+
+                _userService.AddUser(newUser);
+
+                return RedirectToAction("Login");
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
     }
 }

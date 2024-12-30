@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Domain", "E-Comm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Application", "E-Commerce.Application\E-Commerce.Application.csproj", "{90020868-83C8-4ABB-B692-95E32BF5362B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Infrastructure", "E-Commerce.Infrastucture\E-Commerce.Infrastructure.csproj", "{32B2F2C6-C3D7-4F64-B319-4926F10C554E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Infrastucture", "E-Commerce.Infrastucture\E-Commerce.Infrastucture.csproj", "{32B2F2C6-C3D7-4F64-B319-4926F10C554E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Presentation", "E-Commerce.Presentation\E-Commerce.Presentation.csproj", "{266BED2A-65A5-473E-BBD7-63E55D92B2EF}"
 	ProjectSection(ProjectDependencies) = postProject

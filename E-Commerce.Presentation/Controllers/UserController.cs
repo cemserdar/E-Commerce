@@ -13,7 +13,7 @@ public class UserController : ControllerBase
     {
         _userService = userService;
     }
-    [HttpGet]
+    [HttpPost]
     public IActionResult AddUser(User user)
     {
         var result = _userService.AddUser(user);

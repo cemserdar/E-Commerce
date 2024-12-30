@@ -1,16 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<RootNamespace>E_Commerce.Infrastructure</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>E_Commerce.Presentation</RootNamespace>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<!-- Bootstrap for UI -->
-		<PackageReference Include="bootstrap" Version="5.3.3" />
-
 		<!-- Entity Framework Core -->
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
@@ -24,16 +21,15 @@
 
 		<!-- PostgreSQL provider for EF Core -->
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-
-		<!-- Swagger for API documentation -->
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- Project References -->
-		<ProjectReference Include="..\E-Commerce.Application\E-Commerce.Application.csproj" />
 		<ProjectReference Include="..\E-Commerce.Domain\E-Commerce.Domain.csproj" />
-		<ProjectReference Include="..\E-Commerce.Infrastucture\E-Commerce.Infrastucture.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Data\" />
 	</ItemGroup>
 
 </Project>

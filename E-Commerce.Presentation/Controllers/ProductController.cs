@@ -1,10 +1,10 @@
 using E_Commerce.Application.Interfaces;
+using E_Commerce.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Presentation.Controllers;
-[ApiController]
-[Route("api/[controller]")]
-public class ProductController : ControllerBase
+
+public class ProductController : Controller
 {
     private readonly IProductService _productService;
 
@@ -16,7 +16,9 @@ public class ProductController : ControllerBase
     [HttpGet]
     public IActionResult Get()
     {
-        var products = _productService.GetProducts();
+        var products = _productService.GetProducts().ToList();
+
+
         return Ok(products);
     }
 }
