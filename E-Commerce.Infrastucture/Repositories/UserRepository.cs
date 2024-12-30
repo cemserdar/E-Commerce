@@ -19,4 +19,11 @@ public class UserRepository
 
         return user;
     }
+
+    public User AddUser(User user)
+    {
+        context.Users.Add(user);
+        context.SaveChanges();
+        return user;
+    }
 }

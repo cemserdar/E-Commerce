@@ -17,4 +17,9 @@ public class UserService : IUserService
     {
         return _repository.UserCheck(username, password);
     }
+
+    public User AddUser(User user)
+    {
+        return _repository.AddUser(user);
+    }
 }
