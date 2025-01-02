@@ -9,7 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .product-card {
-            display: none;
+            display: block;
         }
     </style>
 </head>
@@ -29,7 +29,7 @@
                     <a class="nav-link" href="#">Ürünler</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sepet</a>
+                    <a class="nav-link" href="/Basket/Index">Sepet</a>
                 </li>
             </ul>
         </div>
@@ -48,9 +48,22 @@
                     <div class="card">
                         <img src="@item.Image" class="card-img-top" alt="@item.Name">
                         <div class="card-body">
-                            <h5 class="card-title">@item.Title</h5>
+                            <h5 class="card-title">@item.Name</h5>
                             <p class="card-text">@item.Description</p>
-                            <a href="#" class="btn btn-primary">Sepete Ekle</a>
+                            <p class="card-text">Fiyat: @item.Price.ToString("C")</p>
+
+                            <!-- Sepete Ekle Formu -->
+                            <form method="post" action="@Url.Action("AddToBasket", "Basket")">
+                                <input type="hidden" name="productId" value="@item.Id" />
+                                <input type="hidden" name="productName" value="@item.Name" />
+                                <input type="hidden" name="price" value="@item.Price" />
+                                <div class="form-group">
+                                    <label for="quantity">Miktar:</label>
+                                    <input type="number" name="quantity" class="form-control" value="1" min="1" />
+                                </div>
+                                <button type="submit" class="btn btn-primary">Sepete Ekle</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -66,7 +79,6 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script> *@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>

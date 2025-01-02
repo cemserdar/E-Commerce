@@ -13,8 +13,9 @@ public class ECommerceDbContext : DbContext
     public DbSet<Category> Categories { get; set; }
     public DbSet<Product> Products { get; set; }
     public DbSet<Basket> Baskets { get; set; }
+    public DbSet<BasketItem> BasketItems { get; set; }
 
-    
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,13 +28,9 @@ public class ECommerceDbContext : DbContext
             .HasForeignKey(p => p.CategoryId);
 
         modelBuilder.Entity<Basket>()
-            .HasOne(b => b.User)
-            .WithMany(u => u.Baskets)
-            .HasForeignKey(b => b.UserId);
+         .HasMany(b => b.Items)
+         .WithOne(i => i.Basket)
+         .HasForeignKey(i => i.BasketId);
 
-        modelBuilder.Entity<Basket>()
-            .HasOne(b => b.Product)
-            .WithMany()
-            .HasForeignKey(b => b.ProductId);
     }
 }

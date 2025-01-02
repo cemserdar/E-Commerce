@@ -52,6 +52,11 @@ builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<UserRepository>();
+
+builder.Services.AddScoped<IBasketService, BasketService>();
+
+
+
 builder.Services.AddControllersWithViews();
 //builder.Services.AddControllers()
 //    .AddJsonOptions(options =>
